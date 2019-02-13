@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shibro.nativeproducts.persistence.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="com.shibro.nativeproducts.data.entity.UserInfo">
+<mapper namespace="com.shibro.travel.persistence.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.shibro.travel.data.entity.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -17,7 +17,7 @@
   </select>
 
 
-  <select id="isExistsUserName" parameterType="com.shibro.nativeproducts.data.entity.UserInfo" resultMap="BaseResultMap">
+  <select id="isExistsUserName" parameterType="com.shibro.travel.data.entity.UserInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from user_info
@@ -25,7 +25,7 @@
     limit 1
   </select>
 
-  <select id="selectByUserInfo" parameterType="com.shibro.nativeproducts.data.entity.UserInfo" resultMap="BaseResultMap">
+  <select id="selectByUserInfo" parameterType="com.shibro.travel.data.entity.UserInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from user_info
@@ -38,7 +38,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.shibro.nativeproducts.data.entity.UserInfo">
+  <insert id="insertSelective" parameterType="com.shibro.travel.data.entity.UserInfo">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -63,7 +63,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shibro.nativeproducts.data.entity.UserInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.shibro.travel.data.entity.UserInfo">
     update user_info
     <set>
       <if test="userName != null">
