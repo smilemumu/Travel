@@ -1,4 +1,4 @@
-package com.shibro.nativeproducts;
+package com.shibro.travel;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

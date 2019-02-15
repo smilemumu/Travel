@@ -52,11 +52,13 @@ public class TravelService {
     }
 
     private void convertParam(HomePageInfoRequestVo param) {
-        if(param.getSort().equals("recommendLevel")){
-            param.setSort("recommend_level");
-        }
-        if(param.getSort().equals("travelLevel")){
-            param.setSort("travel_level");
+        if(Objects.nonNull(param.getSort())){
+            if(param.getSort().equals("recommendLevel")){
+                param.setSort("recommend_level");
+            }
+            if(param.getSort().equals("travelLevel")){
+                param.setSort("travel_level");
+            }
         }
     }
 
@@ -175,8 +177,6 @@ public class TravelService {
         }
     }
 
-    public static void main(String[] args) {
-    }
 
     public BaseResponseVo queryTravelType(BaseRequestVo requestVo) {
         return BaseResponseVo.successResponseVo(TravelTypeEnum.getTravelType());

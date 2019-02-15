@@ -117,7 +117,7 @@
 
 
 	<build>
-		<finalName>NativeProducts</finalName>
+		<finalName>Travel</finalName>
 		<defaultGoal>compile</defaultGoal>
 		<plugins>
 			<plugin>
