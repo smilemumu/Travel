@@ -7,21 +7,18 @@ import com.shibro.travel.data.enums.ErrorCodeEnum;
 import com.shibro.travel.data.enums.TravelTypeEnum;
 import com.shibro.travel.data.vo.BaseRequestVo;
 import com.shibro.travel.data.vo.BaseResponseVo;
-import com.shibro.travel.data.vo.requestvo.DeleteTravelInfoRequestVo;
-import com.shibro.travel.data.vo.requestvo.HomePageInfoRequestVo;
-import com.shibro.travel.data.vo.requestvo.InsertTravelInfoRequestVo;
-import com.shibro.travel.data.vo.requestvo.UpdateTravelInfoRequestVo;
+import com.shibro.travel.data.vo.TravelTree;
+import com.shibro.travel.data.vo.requestvo.*;
 import com.shibro.travel.persistence.TravelInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -180,5 +177,31 @@ public class TravelService {
 
     public BaseResponseVo queryTravelType(BaseRequestVo requestVo) {
         return BaseResponseVo.successResponseVo(TravelTypeEnum.getTravelType());
+    }
+
+    public BaseResponseVo getTravelDetailByName(TravelDetailQueryRequestVo requestVo) {
+        if(StringUtils.isEmpty(requestVo.getName())){
+            return BaseResponseVo.successResponseVo();
+        }
+        TravelInfo travelInfo = travelInfoMapper.selectByName(requestVo.getName());
+        return BaseResponseVo.successResponseVo(travelInfo);
+    }
+
+    public BaseResponseVo getTravelTree(BaseRequestVo requestVo) {
+        List<TravelTree> result  = new ArrayList<>();
+        HomePageInfoRequestVo param = new HomePageInfoRequestVo();
+        List<TravelInfo> travelInfos = travelInfoMapper.selectByParam(param);
+        if(Objects.nonNull(travelInfos)){
+            Map<String,List<TravelInfo>> mapR = travelInfos.stream().collect(Collectors.groupingBy(item->item.getType()));
+            mapR.forEach((k,v)->{
+                List<String> list = v.stream().map(item->item.getName()).collect(Collectors.toList());
+                String type = k;
+                TravelTree travelTree = new TravelTree();
+                travelTree.setName(list);
+                travelTree.setType(type);
+                result.add(travelTree);
+            });
+        }
+        return BaseResponseVo.successResponseVo(result);
     }
 }

@@ -3,6 +3,7 @@ package com.shibro.travel.persistence;
 
 import com.shibro.travel.data.entity.TravelInfo;
 import com.shibro.travel.data.vo.requestvo.HomePageInfoRequestVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface TravelInfoMapper {
     List<TravelInfo> selectByParam(HomePageInfoRequestVo param);
 
     Integer selectCount(HomePageInfoRequestVo param);
+
+    TravelInfo selectByName(@Param("name") String name);
 }

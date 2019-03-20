@@ -22,6 +22,18 @@
   </sql>
 
 
+  <select id="selectByName"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from travel_info
+    <where>
+    <if test="name != null">
+        name = #{name}
+    </if>
+    </where>
+    limit 0,1
+  </select>
+
 
   <select id="selectByParam"  resultMap="BaseResultMap" parameterType="com.shibro.travel.data.vo.requestvo.HomePageInfoRequestVo">
     select

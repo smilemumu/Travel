@@ -2,10 +2,7 @@ package com.shibro.travel.controller;
 
 import com.shibro.travel.data.vo.BaseRequestVo;
 import com.shibro.travel.data.vo.BaseResponseVo;
-import com.shibro.travel.data.vo.requestvo.DeleteTravelInfoRequestVo;
-import com.shibro.travel.data.vo.requestvo.HomePageInfoRequestVo;
-import com.shibro.travel.data.vo.requestvo.InsertTravelInfoRequestVo;
-import com.shibro.travel.data.vo.requestvo.UpdateTravelInfoRequestVo;
+import com.shibro.travel.data.vo.requestvo.*;
 import com.shibro.travel.service.TravelService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +30,28 @@ public class TravelController {
         return travelService.getHomePageInfo(requestVo);
     }
 
+
+    /**
+     * 根据景点名字搜索
+     */
+    @RequestMapping(value = "/travel/getTravelDetailByName",method = RequestMethod.POST)
+    public BaseResponseVo getTravelDetailByName(@RequestBody TravelDetailQueryRequestVo requestVo){
+        return travelService.getTravelDetailByName(requestVo);
+    }
+
+    /**
+     * 树形结构返回  景点类型 及名字
+     *   类型1
+     *        景点1
+     *        景点2
+     *   类型2
+     *        景点1
+     *        景点2
+     */
+    @RequestMapping(value = "/travel/getTravelTree",method = RequestMethod.POST)
+    public BaseResponseVo getTravelTree(@RequestBody BaseRequestVo requestVo){
+        return travelService.getTravelTree(requestVo);
+    }
 
     /**
      * 新增旅游景点信息

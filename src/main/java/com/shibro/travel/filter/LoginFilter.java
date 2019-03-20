@@ -6,7 +6,6 @@ import com.shibro.travel.data.vo.BaseResponseVo;
 import com.shibro.travel.utils.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Component
+//@Component
 public class LoginFilter implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginFilter.class);
@@ -35,15 +34,17 @@ public class LoginFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         String staticUrl = "**/static/**";
         String picureUrl = "**/picture/**";
-        String loginUrl = "**/login/";
-        String logoutUrl = "**/logout/";
-        String registerUrl = "**/register/";
+        String loginUrl = "**/#/login/*";
+        String logoutUrl = "**/logout/*";
+        String registerUrl = "**/register/*";
+        String typeUrl = "**/type/*";
         LOG.info("初始化用户登录过滤器");
         specialNotNeedLoginPattern.add(staticUrl);
         specialNotNeedLoginPattern.add(picureUrl);
         specialNotNeedLoginPattern.add(loginUrl);
         specialNotNeedLoginPattern.add(logoutUrl);
         specialNotNeedLoginPattern.add(registerUrl);
+        specialNotNeedLoginPattern.add(typeUrl);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse rep = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         String path = req.getRequestURL().toString();
-        LOG.info("request path:" + path);
+
         Boolean pass = specialNotNeedLoginPattern.stream().map(pattern -> pathMatcher.match(pattern, path)).anyMatch(item -> item.equals(true));
         if (pass) {
             chain.doFilter(request, response);
@@ -89,6 +90,5 @@ public class LoginFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }
