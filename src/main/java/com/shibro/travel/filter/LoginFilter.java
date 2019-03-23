@@ -6,6 +6,7 @@ import com.shibro.travel.data.vo.BaseResponseVo;
 import com.shibro.travel.utils.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//@Component
+@Component
 public class LoginFilter implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginFilter.class);
@@ -34,10 +35,10 @@ public class LoginFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         String staticUrl = "**/static/**";
         String picureUrl = "**/picture/**";
-        String loginUrl = "**/#/login/*";
-        String logoutUrl = "**/logout/*";
-        String registerUrl = "**/register/*";
-        String typeUrl = "**/type/*";
+        String loginUrl = "**/login/**";
+        String logoutUrl = "**/logout/**";
+        String registerUrl = "**/register/**";
+        String typeUrl = "**/type/**";
         LOG.info("初始化用户登录过滤器");
         specialNotNeedLoginPattern.add(staticUrl);
         specialNotNeedLoginPattern.add(picureUrl);

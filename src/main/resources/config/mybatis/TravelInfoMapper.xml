@@ -135,8 +135,8 @@
       <if test="busRoutes != null">
         bus_routes,
       </if>
-      <if test="travelLevel != null">
-        travel_level,
+      <if test="recommendLevel != null">
+        recommend_level,
       </if>
       <if test="editorComments != null">
         editor_comments,

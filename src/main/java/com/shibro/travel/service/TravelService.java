@@ -184,7 +184,25 @@ public class TravelService {
             return BaseResponseVo.successResponseVo();
         }
         TravelInfo travelInfo = travelInfoMapper.selectByName(requestVo.getName());
-        return BaseResponseVo.successResponseVo(travelInfo);
+        HomePageInfoItem item = convertHomePageInfo(travelInfo);
+        return BaseResponseVo.successResponseVo(item);
+    }
+
+    private HomePageInfoItem convertHomePageInfo(TravelInfo item) {
+        HomePageInfoItem homePageInfoItem = new HomePageInfoItem();
+        homePageInfoItem.setId(item.getId());
+        homePageInfoItem.setName(item.getName());
+        homePageInfoItem.setDescription(item.getDescription());
+        homePageInfoItem.setPrice(item.getPrice().toString());
+        homePageInfoItem.setTravelLevel(item.getTravelLevel());
+        homePageInfoItem.setRanking(item.getRanking());
+        homePageInfoItem.setType(item.getType());
+        homePageInfoItem.setMainPictureUrl(item.getMainPictureUrl());
+        homePageInfoItem.setBusRoutes(convertBusRoutes(item.getBusRoutes()));
+        homePageInfoItem.setRecommendLevel(item.getRecommendLevel());
+        homePageInfoItem.setEditorComments(item.getEditorComments());
+        homePageInfoItem.setOtherPictureUrls(convertOtherPictureUrls(item.getOtherPictureUrl()));
+        return homePageInfoItem;
     }
 
     public BaseResponseVo getTravelTree(BaseRequestVo requestVo) {
