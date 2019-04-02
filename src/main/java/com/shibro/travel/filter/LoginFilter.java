@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Component
+//@Component
 public class LoginFilter implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginFilter.class);
