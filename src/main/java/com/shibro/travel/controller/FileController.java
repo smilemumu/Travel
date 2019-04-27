@@ -17,6 +17,12 @@ public class FileController {
     @Resource
     private FileService fileService;
 
+    /**
+     * 文件上传
+     * @param file
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/file/upload",method = RequestMethod.POST)
     public BaseResponseVo uploadFile(@RequestBody  MultipartFile file, HttpServletRequest request){
         BaseResponseVo responseVo = fileService.uploadFile(file,request);
